@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct ContentView: View {
+    @ObservedObject var model = WebViewModel(url: "https://www.vocabulary.com")
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        LoadingView(isShowing: self.$model.isLoading) {
+            WebView(viewModel: self.model)
+                .ignoresSafeArea()
+        }
     }
 }
 
